@@ -26,3 +26,12 @@ CREATE TABLE complaints (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
 );
+
+ALTER TABLE students ADD COLUMN current_level INT NOT NULL;
+CREATE TABLE payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    level INT NOT NULL,
+    status ENUM('paid', 'unpaid') DEFAULT 'unpaid',
+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
+);

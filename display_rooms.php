@@ -1,7 +1,7 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "camp_db");
+$conn = mysqli_connect("localhost", "root", "", "allocation_db");
 
-$rooms = mysqli_query($conn, "SELECT * FROM hostel_rooms ORDER BY hostel_name, block, room_number");
+$rooms = mysqli_query($conn, "SELECT * FROM rooms ORDER BY block, room_number");
 
 echo "<style>
     table { border-collapse: collapse; width: 80%; margin: 20px auto; font-family: Arial; }
@@ -13,14 +13,13 @@ echo "<style>
 </style>";
 
 echo "<table>
-    <tr><th>Hostel</th><th>Block</th><th>Room</th><th>Occupancy</th><th>Status</th></tr>";
+    <tr><th>Hostel</th><th>Block</th><th>Room</th><th>Occupancy</th></tr>";
 
 while ($room = mysqli_fetch_assoc($rooms)) {
     $status = $room['capacity_used'] >= $room['capacity'] ? "Full" : "Available";
     $statusClass = $status === "Full" ? "full" : "available";
 
     echo "<tr>
-        <td>{$room['hostel_name']}</td>
         <td>{$room['block']}</td>
         <td>{$room['room_number']}</td>
         <td>{$room['capacity_used']}/{$room['capacity']}</td>
